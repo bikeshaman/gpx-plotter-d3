@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import origin from '../config';
+import { getData, postFile } from '../api/api';
 import MapView from './MapView';
 import Inputs from './Inputs';
 
@@ -17,9 +17,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`${origin}/data`)
-      .then(response => response.json())
-      .catch(err => console.log('error fetching data', err))
+    getData()
       .then(data => this.setState({ data }))
       .catch(err => console.log('error setting state', err));
   }
@@ -33,12 +31,7 @@ export default class App extends Component {
 
   uploadFile(e) {
     const [file] = e.target.files;
-    fetch(`${origin}/data`, {
-      method: 'POST',
-      body: file,
-      headers: { 'Content-Type': 'text/xml' },
-    }).then(response => response.json())
-      .catch(err => console.log('error posting file', err))
+    postFile(file)
       .then(data => this.setState({ data }))
       .catch(err => console.log('error updating state', err));
   }
