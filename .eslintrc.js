@@ -1,6 +1,9 @@
 module.exports = {
-  extends: ['airbnb', 'prettier', 'prettier/react'],
+  extends: ['prettier', 'prettier/react', 'airbnb'],
   env: {
     browser: true,
+  },
+  rules: {
+    'import/no-unresolved': 'off',
   },
 };
