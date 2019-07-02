@@ -10,6 +10,22 @@
     "start:watch": "nodemon index.js"
   },
   "dependencies": {
-    "fast-xml-parser": "^3.12.16"
+    "express": "^4.17.1",
+    "fast-xml-parser": "^3.12.16",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "5.3.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
   }
 }
