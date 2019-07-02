@@ -1,4 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
+import App from './components/App';
 
-render(<div>Hi</div>, document.querySelector('#app'));
+render(<App />, document.querySelector('#app'));

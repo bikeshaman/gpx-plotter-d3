@@ -3,22 +3,29 @@ const path = require('path');
 const parser = require('fast-xml-parser');
 const express = require('express');
 
-const file = fs.readFileSync(path.join(__dirname, 'Long_s_Chasm_Lake.gpx'));
+const gpxToJSON = (gpxFile) => {
+  const gpx = parser.parse(gpxFile.toString(), {
+    ignoreAttributes: false,
+    attributeNamePrefix: '',
+    attrValueProcessor: Number,
+  });
+  const json = gpx.gpx.trk.trkseg.trkpt;
+  return json;
+};
 
-const json = parser.parse(file.toString(), {
-  attributeNamePrefix: '',
-  ignoreAttributes: false,
-});
+// on initial server load, the data from this particular run is prepared
+// readFileSync is appropriate because this operation will happen very, very likely before any
+// requests will reach the server
+const gpxFile = fs.readFileSync(path.join(__dirname, 'Long_s_Chasm_Lake.gpx'));
+const json = gpxToJSON(gpxFile);
 
-const { gpx: { trk: { trkseg: { trkpt: data } } } } = json;
-
-const app = express();
 const PORT = process.env.PORT || 4000;
+const app = express();
 
 app.use(express.static('public'));
 
-app.get('/data', (req, res) => {
-  res.json(data);
+app.get('/data', async (req, res) => {
+  res.json(json);
 });
 
 app.listen(PORT);
