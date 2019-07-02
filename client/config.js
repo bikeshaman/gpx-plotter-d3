@@ -1,1 +1,1 @@
-export default process.env.HEROKU_URL || 'http://localhost:4000';
+export default 'https://gpx-plotter-d3.herokuapp.com';

@@ -12,7 +12,7 @@ svg {
 }
 
 .map {
-  stroke: red;
+  stroke: rgb(243, 22, 184);
   fill: none;
   &.playing {
     stroke-dashoffset: -3974;
@@ -48,11 +48,11 @@ form {
     font-size: 16px;
     color: white;
     &.play {
-      background-color: green;
+      background-color: rgb(11, 169, 88);
       margin-left: 15px;
     }
     &.upload {
-      background-color: blue;
+      background-color: rgb(0, 161, 221);
     }
     &.custom-button {
       padding: 2px 6px 3px 6px;
