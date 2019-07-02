@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { path, elevation } from '../visualization/d3Map';
-import { width, height } from '../visualization/d3Map.config';
 import animations from '../styles/animations';
 
-export default function MapView({ data, playing, mapLength, elevationLength }) {
+export default function MapView({
+  data, playing, mapLength, elevationLength, dimension,
+}) {
   return (
     <div className="visualizations">
       <style>{animations(mapLength, elevationLength)}</style>
-      <svg className="map" width={width} height={height}>
+      <svg className="map" width={dimension} height={dimension}>
         <path
           id="map"
-          d={path(data)}
+          d={path(data, dimension)}
           className={playing ? 'map playing' : 'map'}
         />
       </svg>
-      <svg className="elevation" width={width * 1.5} height={height}>
+      <svg className="elevation" width={dimension} height={dimension}>
         <path
           id="elevation"
-          d={elevation(data)}
+          d={elevation(data, dimension)}
           className={playing ? 'elevation playing' : 'elevation'}
         />
       </svg>
@@ -31,4 +32,5 @@ MapView.propTypes = {
   playing: PropTypes.bool.isRequired,
   mapLength: PropTypes.number.isRequired,
   elevationLength: PropTypes.number.isRequired,
+  dimension: PropTypes.number.isRequired,
 };

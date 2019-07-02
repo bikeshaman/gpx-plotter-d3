@@ -3,44 +3,28 @@
 }
 
 .visualizations {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
+  width: 70%;
+  height: 80%;
+  margin: 0 auto;
+  text-align: center;
   stroke: rgb(243, 22, 184);
   fill: none;
+  .map {
+    margin-top: 15px;
+  }
 }
 
 .elevation {
   fill: rgba(243, 22, 184, 0.2);
 }
 
-svg {
-  position: absolute;
-  right: 0;
-  left: 0;
-  margin: auto;
-  &.map {
-    top: 15%;
-  }
-  &.elevation {
-    top: 45%;
-  }
-}
-
 form {
-  position: absolute;
-  top: 90%;
-  right: 0;
-  bottom: 10%;
-  left: 0;
-  margin: auto;
+  margin-top: 15px;
   text-align: center;
   label {
     cursor: pointer;
-    display: inline-block;
+    display: block;
+    margin: 0 auto;
     width: 200px;
     height: 30px;
     font-family: 'Avenir Next', Arial, Helvetica, sans-serif;
@@ -48,7 +32,6 @@ form {
     color: white;
     &.play {
       background-color: rgb(11, 169, 88);
-      margin-left: 15px;
     }
     &.upload {
       background-color: rgb(0, 161, 221);

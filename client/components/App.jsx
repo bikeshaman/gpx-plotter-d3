@@ -11,10 +11,12 @@ export default class App extends Component {
       playing: false,
       mapLength: 0,
       elevationLength: 0,
+      dimension: window.innerWidth * 0.5,
     };
     this.computeLengths = this.computeLengths.bind(this);
     this.togglePlaying = this.togglePlaying.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
+    window.onresize = this.resizeDimension.bind(this);
   }
 
   componentDidMount() {
@@ -42,11 +44,18 @@ export default class App extends Component {
       .then(data => this.setState({ data }))
       .catch(err => console.log('error updating state', err))
       .then(this.computeLengths)
-      .catch(err => console.log('error computing lengths', err));
+      .catch(err => console.log('error computing lengths', err))
+      .then(() => document.querySelector('form').reset());
+  }
+
+  resizeDimension() {
+    this.setState({ dimension: window.innerWidth * 0.5 });
   }
 
   render() {
-    const { data, playing, mapLength, elevationLength } = this.state;
+    const {
+      data, playing, mapLength, elevationLength, dimension,
+    } = this.state;
     return (
       <div>
         <MapView
@@ -54,6 +63,7 @@ export default class App extends Component {
           playing={playing}
           mapLength={mapLength}
           elevationLength={elevationLength}
+          dimension={dimension}
         />
         <Inputs play={this.togglePlaying} upload={this.uploadFile} />
       </div>
