@@ -11,26 +11,6 @@ svg {
   margin: auto;
 }
 
-.map {
-  stroke: rgb(243, 22, 184);
-  fill: none;
-  &.playing {
-    stroke-dashoffset: -3974;
-    stroke-dasharray: 3974;
-    animation: draw 5s infinite;
-    animation-fill-mode: forwards;
-  }
-}
-
-@keyframes draw {
-  from {
-    stroke-dashoffset: 3974;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 form {
   position: absolute;
   top: 90%;

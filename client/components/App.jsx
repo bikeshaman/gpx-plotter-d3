@@ -6,7 +6,12 @@ import Inputs from './Inputs';
 export default class App extends Component {
   constructor() {
     super();
-    this.state = { data: [], playing: false };
+    this.state = {
+      data: [],
+      playing: false,
+      mapLength: 0,
+      elevationLength: 0,
+    };
     this.togglePlaying = this.togglePlaying.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
   }
@@ -21,7 +26,9 @@ export default class App extends Component {
 
   togglePlaying() {
     const { playing } = this.state;
-    this.setState({ playing: !playing });
+    const mapLength = document.querySelector('#map').getTotalLength();
+    const elevationLength = document.querySelector('#elevation').getTotalLength();
+    this.setState({ playing: !playing, mapLength, elevationLength });
   }
 
   uploadFile(e) {
@@ -29,9 +36,7 @@ export default class App extends Component {
     fetch(`${origin}/data`, {
       method: 'POST',
       body: file,
-      headers: {
-        'Content-Type': 'text/xml',
-      },
+      headers: { 'Content-Type': 'text/xml' },
     }).then(response => response.json())
       .catch(err => console.log('error posting file', err))
       .then(data => this.setState({ data }))
@@ -39,10 +44,15 @@ export default class App extends Component {
   }
 
   render() {
-    const { data, playing } = this.state;
+    const { data, playing, mapLength, elevationLength } = this.state;
     return (
       <div>
-        <MapView data={data} playing={playing} />
+        <MapView
+          data={data}
+          playing={playing}
+          mapLength={mapLength}
+          elevationLength={elevationLength}
+        />
         <Inputs play={this.togglePlaying} upload={this.uploadFile} />
       </div>
     );

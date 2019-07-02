@@ -4,6 +4,7 @@ module.exports = {
     browser: true,
   },
   rules: {
+    'object-curly-newline': ['error', { minProperties: 5, consistent: true }],
     'import/no-unresolved': 'off',
   },
 };

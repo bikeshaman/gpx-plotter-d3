@@ -3,7 +3,7 @@ import { scaleLinear } from 'd3-scale';
 import { min, max } from 'd3-array';
 import { width, height } from './d3Map.config';
 
-export default (data) => {
+export function path(data) {
   const x = coord => coord.lon;
   const y = coord => coord.lat;
 
@@ -14,10 +14,28 @@ export default (data) => {
     .domain([min(data, y), max(data, y)])
     .range([height, 0]);
 
-  const drawLine = line()
+  const drawPath = line()
     .x(d => xScale(d.lon))
     .y(d => yScale(d.lat))
     .curve(curveLinear);
 
-  return drawLine(data);
-};
+  return drawPath(data);
+}
+
+export function elevation(data) {
+  const ele = coord => coord.ele;
+
+  const xScale = scaleLinear()
+    .domain([0, data.length])
+    .range([0, width * 1.5]);
+  const yScale = scaleLinear()
+    .domain([min(data, ele), max(data, ele)])
+    .range([height, 0]);
+
+  const drawElevation = line()
+    .x((d, i) => xScale(i))
+    .y(d => yScale(d.ele))
+    .curve(curveLinear);
+
+  return drawElevation(data);
+}
