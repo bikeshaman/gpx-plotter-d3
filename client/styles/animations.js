@@ -1,12 +1,12 @@
 export default (mapLength, elevationLength) => `
-  .map.playing {
+  .map.drawing {
     stroke-dashoffset: ${-1 * mapLength};
     stroke-dasharray: ${mapLength};
     animation: drawMap 5s infinite;
     animation-fill-mode: forwards;
   }
 
-  .elevation.playing {
+  .elevation.drawing {
     stroke-dashoffset: ${-1 * elevationLength};
     stroke-dasharray: ${elevationLength};
     animation: drawElevation 5s infinite;

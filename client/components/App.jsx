@@ -8,20 +8,21 @@ export default class App extends Component {
     super();
     this.state = {
       data: [],
-      playing: false,
+      drawing: false,
+      loading: true,
       mapLength: 0,
       elevationLength: 0,
       dimension: window.innerWidth * 0.5,
     };
     this.computeLengths = this.computeLengths.bind(this);
-    this.togglePlaying = this.togglePlaying.bind(this);
+    this.toggleDrawing = this.toggleDrawing.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
     window.onresize = this.resizeDimension.bind(this);
   }
 
   componentDidMount() {
     getData()
-      .then(data => this.setState({ data }))
+      .then(data => this.setState({ data, loading: false }))
       .catch(err => console.log('error setting state', err));
   }
 
@@ -32,16 +33,17 @@ export default class App extends Component {
     this.setState({ mapLength, elevationLength });
   }
 
-  togglePlaying() {
-    const { playing } = this.state;
-    this.setState({ playing: !playing });
+  toggleDrawing() {
+    const { drawing } = this.state;
+    this.setState({ drawing: !drawing });
     this.computeLengths();
   }
 
   uploadFile(e) {
     const [file] = e.target.files;
+    this.setState({ loading: true });
     postFile(file)
-      .then(data => this.setState({ data }))
+      .then(data => this.setState({ data, drawing: false, loading: false }))
       .catch(err => console.log('error updating state', err))
       .then(this.computeLengths)
       .catch(err => console.log('error computing lengths', err))
@@ -54,18 +56,21 @@ export default class App extends Component {
 
   render() {
     const {
-      data, playing, mapLength, elevationLength, dimension,
+      data, drawing, loading, mapLength, elevationLength, dimension,
     } = this.state;
     return (
       <div>
-        <MapView
-          data={data}
-          playing={playing}
-          mapLength={mapLength}
-          elevationLength={elevationLength}
-          dimension={dimension}
-        />
-        <Inputs play={this.togglePlaying} upload={this.uploadFile} />
+        {loading ? <div className="loading">Loading...</div>
+          : (
+            <MapView
+              data={data}
+              drawing={drawing}
+              mapLength={mapLength}
+              elevationLength={elevationLength}
+              dimension={dimension}
+            />
+          )}
+        <Inputs play={this.toggleDrawing} upload={this.uploadFile} />
       </div>
     );
   }
