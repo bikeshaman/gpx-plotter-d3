@@ -10,7 +10,8 @@
     "start:watch": "nodemon index.js",
     "build": "webpack",
     "build:watch": "webpack -d -w",
-    "pretest": "eslint . --ext js,jsx"
+    "pretest": "eslint . --ext js,jsx",
+    "check-staged": "lint-staged"
   },
   "dependencies": {
     "d3": "^5.9.7",
@@ -34,8 +35,16 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
+    "husky": "^3.0.0",
+    "lint-staged": "^9.0.1",
     "prettier": "^1.18.2",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
+  },
+  "husky": {
+    "hooks": { "pre-commit": "lint-staged" }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": ["eslint", "prettier --list-different"]
   }
 }
