@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import origin from '../config';
 import MapView from './MapView';
 import Inputs from './Inputs';
 
@@ -11,7 +12,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/data')
+    fetch(`${origin}/data`)
       .then(response => response.json())
       .catch(err => console.log('error fetching data', err))
       .then(data => this.setState({ data }))
@@ -25,7 +26,7 @@ export default class App extends Component {
 
   uploadFile(e) {
     const [file] = e.target.files;
-    fetch('http://localhost:4000/data', {
+    fetch(`${origin}/data`, {
       method: 'POST',
       body: file,
       headers: {

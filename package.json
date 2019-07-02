@@ -1,5 +1,5 @@
 {
-  "name": "longs-chasm-d3",
+  "name": "gpx-plotter-d3",
   "version": "1.0.0",
   "description": "practicing modeling data with D3.js",
   "main": "index.js",
