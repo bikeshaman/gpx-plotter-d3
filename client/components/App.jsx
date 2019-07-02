@@ -12,6 +12,7 @@ export default class App extends Component {
       mapLength: 0,
       elevationLength: 0,
     };
+    this.computeLengths = this.computeLengths.bind(this);
     this.togglePlaying = this.togglePlaying.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
   }
@@ -22,18 +23,26 @@ export default class App extends Component {
       .catch(err => console.log('error setting state', err));
   }
 
-  togglePlaying() {
-    const { playing } = this.state;
+  computeLengths() {
+    // there may be a possible performance improvement from not calculating this every time
     const mapLength = document.querySelector('#map').getTotalLength();
     const elevationLength = document.querySelector('#elevation').getTotalLength();
-    this.setState({ playing: !playing, mapLength, elevationLength });
+    this.setState({ mapLength, elevationLength });
+  }
+
+  togglePlaying() {
+    const { playing } = this.state;
+    this.setState({ playing: !playing });
+    this.computeLengths();
   }
 
   uploadFile(e) {
     const [file] = e.target.files;
     postFile(file)
       .then(data => this.setState({ data }))
-      .catch(err => console.log('error updating state', err));
+      .catch(err => console.log('error updating state', err))
+      .then(this.computeLengths)
+      .catch(err => console.log('error computing lengths', err));
   }
 
   render() {

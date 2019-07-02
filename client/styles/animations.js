@@ -1,13 +1,4 @@
 export default (mapLength, elevationLength) => `
-  .visualizations {
-    stroke: rgb(243, 22, 184);
-    fill: none;
-  }
-
-  .elevation {
-    fill: rgba(243, 22, 184, 0.2);
-  }
-
   .map.playing {
     stroke-dashoffset: ${-1 * mapLength};
     stroke-dasharray: ${mapLength};
