@@ -24,8 +24,17 @@ const app = express();
 
 app.use(express.static('public'));
 
-app.get('/data', async (req, res) => {
+app.get('/data', (req, res) => {
   res.json(json);
+});
+
+app.post('/data', (req, res) => {
+  let newGPX = '';
+  req.on('data', (part) => {
+    newGPX = `${newGPX}${part.toString()}`;
+  }).on('end', () => {
+    res.json(gpxToJSON(newGPX));
+  });
 });
 
 app.listen(PORT);

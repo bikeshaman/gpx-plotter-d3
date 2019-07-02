@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.map {
+  stroke: red;
+  fill: none;
+  &.playing {
+    stroke-dashoffset: -3974;
+    stroke-dasharray: 3974;
+    animation: draw 5s infinite;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 3974;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+form {
+  position: absolute;
+  top: 90%;
+  right: 0;
+  bottom: 10%;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  label {
+    cursor: pointer;
+    display: inline-block;
+    width: 200px;
+    height: 30px;
+    font-family: 'Avenir Next', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: white;
+    &.play {
+      background-color: green;
+      margin-left: 15px;
+    }
+    &.upload {
+      background-color: blue;
+    }
+    &.custom-button {
+      padding: 2px 6px 3px 6px;
+      border: 2px outset rgb(192, 192, 192);
+    }
+    &.custom-button:active {
+      border-style: inset;
+    }
+    &:focus {
+      outline: 1px dotted black;
+      outline: -webkit-focus-ring-color auto 5px;
+    }
+  }
+  .fa-play,
+  .fa-upload {
+    margin-left: 15px;
+  }
+  .fas {
+    font-size: 12px;
+  }
+}
+
+input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
